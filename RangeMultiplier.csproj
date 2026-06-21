@@ -1,0 +1,55 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>RangeMultiplier</AssemblyName>
+    <Product>RangeMultiplier</Product>
+    <LangVersion>latest</LangVersion>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <Deterministic>true</Deterministic>
+    <NoWarn>CS0436;NU1701;MSB3277</NoWarn>
+
+    <!--
+      GameDir = la carpeta de instalacion de Rogue Tower (la que contiene
+      "Rogue Tower_Data/Managed" y "BepInEx/core").
+
+      Orden de resolucion:
+        1. La variable de entorno ROGUE_TOWER_DIR, si esta definida ($(ROGUE_TOWER_DIR)).
+        2. Si no, el default de Steam en Linux bajo $(HOME).
+
+      Para otra ruta:  export ROGUE_TOWER_DIR="/ruta/a/steamapps/common/Rogue Tower"
+      (build.sh ya exporta esta variable por ti).
+    -->
+    <GameDir>$(HOME)/.steam/debian-installation/steamapps/common/Rogue Tower</GameDir>
+    <GameDir Condition="'$(ROGUE_TOWER_DIR)' != ''">$(ROGUE_TOWER_DIR)</GameDir>
+    <Managed>$(GameDir)/Rogue Tower_Data/Managed</Managed>
+    <Core>$(GameDir)/BepInEx/core</Core>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="BepInEx">
+      <HintPath>$(Core)/BepInEx.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="0Harmony">
+      <HintPath>$(Core)/0Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(Managed)/Assembly-CSharp.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>$(Managed)/UnityEngine.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(Managed)/UnityEngine.CoreModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,17 @@
+# Build output
+bin/
+obj/
+out/
+
+# Build artifacts (the DLL is published via Releases, not committed)
+*.dll
+
+# IDE / editor
+.vs/
+.idea/
+*.user
+*.suo
+
+# Local game-path overrides
+RangeMultiplier.csproj.user
+Directory.Build.props.local
